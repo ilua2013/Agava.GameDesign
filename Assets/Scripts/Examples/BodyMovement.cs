@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Agava.IdleGame.Examples
@@ -5,8 +6,8 @@ namespace Agava.IdleGame.Examples
     [RequireComponent(typeof(Rigidbody))]
     public class BodyMovement : MonoBehaviour
     {
-        [SerializeField] private float _speed = 0.2f;
-        [SerializeField] private PlayerInput _input;
+        [SerializeField] private List<PlayerInput> _inputs;
+        [SerializeField][Min(0)] private float _speed = 0.2f;
 
         private Rigidbody _body;
 
@@ -17,9 +18,19 @@ namespace Agava.IdleGame.Examples
 
         private void Update()
         {
-            var rawDirection = new Vector3(_input.Direction.x, 0, _input.Direction.y);
-            _body.velocity = rawDirection * _speed + Vector3.up * _body.velocity.y;
+            var rawDirection = Vector3.zero;
 
+            foreach (var input in _inputs)
+            {
+                var direction = input.Direction;
+                if (direction != Vector2.zero)
+                {
+                    rawDirection = new Vector3(direction.x, 0, direction.y);
+                    break;
+                }
+            }
+
+            _body.velocity = rawDirection * _speed + Vector3.up * _body.velocity.y;
             transform.LookAt(transform.position + rawDirection);
         }
     }
