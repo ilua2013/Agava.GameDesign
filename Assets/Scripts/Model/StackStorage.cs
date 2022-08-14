@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Agava.IdleGame.Model
 {
@@ -49,7 +50,6 @@ namespace Agava.IdleGame.Model
                 throw new ArgumentOutOfRangeException(nameof(index));
 
             var stackable = _data[index];
-
             _data.RemoveAt(index);
             Removed?.Invoke(stackable);
 

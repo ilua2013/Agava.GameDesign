@@ -71,5 +71,28 @@ namespace Agava.IdleGame
 
             Removed?.Invoke(stackable);
         }
+
+        public void RemoveByLayer(int layer)
+        {
+            int i = 0;
+            foreach (var obj in _stack.Data)
+            {
+                if (obj.Layer == layer)
+                {
+                    var stackable = _stack.RemoveAt(i);
+                    _view.Remove(stackable);
+                    return;
+                }
+                i++;
+            }
+        }
+
+        public StackableObject GetFirst()
+        {
+            foreach (var item in Data)
+                return item;
+
+            return null;
+        }
     }
 }

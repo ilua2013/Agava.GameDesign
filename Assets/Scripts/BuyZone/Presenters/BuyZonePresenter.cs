@@ -12,6 +12,7 @@ namespace Agava.IdleGame
         [SerializeField] private Trigger<SoftCurrencyHolder> _trigger;
         [SerializeField] private BuyZoneView _view;
         [SerializeField] private UnlockableObject _unlockable;
+        [SerializeField] private GameObject[] _objectsToDestroy;
 
         private BuyZone _buyZone;
         private Coroutine _tryBuy;
@@ -88,6 +89,8 @@ namespace Agava.IdleGame
             _trigger.Disable();
             _view.Hide();
             _unlockable.Unlock(transform, onLoad, GUID);
+            foreach (var item in _objectsToDestroy)
+                Destroy(item);
 
             Unlocked?.Invoke(this);
         }

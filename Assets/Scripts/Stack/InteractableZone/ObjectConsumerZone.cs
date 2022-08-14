@@ -30,8 +30,8 @@ namespace Agava.IdleGame
                 index++;
             }
 
-            if (index >= enteredStack.Count)
-                throw new InvalidOperationException();
+            //if (index >= enteredStack.Count)
+            //    throw new InvalidOperationException();
 
             var stackable = enteredStack.RemoveAt(index);
             _selfStack.AddToStack(stackable);

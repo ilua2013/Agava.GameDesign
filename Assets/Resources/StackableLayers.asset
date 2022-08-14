@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layers:
   - Default Stackable
-  - Orange Cube
-  - Red Cube
-  - 
-  - 
-  - 
+  - Wood
+  - Iron
+  - Sword
+  - Plank
+  - IronOre
   - 
   - 
   - 
