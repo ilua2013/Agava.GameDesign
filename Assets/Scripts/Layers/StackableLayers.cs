@@ -6,7 +6,7 @@ namespace Agava.IdleGame
 {
     public class StackableLayers : ScriptableObject
     {
-        public const string AssetPath = "Assets/Resources/StackableLayers.asset";
+        public const string AssetPath = "Assets/_Import/Resources/StackableLayers.asset";
         public const int LayersCount = sizeof(int) * 8;
 
         [SerializeField] private string[] _layers = new string[LayersCount];
