@@ -26,16 +26,21 @@ public class ProdactionZone : StackInteractableZone
             if (_layers.ContainsLayer(item.Layer))
             {
                 removedObject = item;
+                if (removedObject == null)
+                    throw new InvalidOperationException("Can't remove object from stack");
+                enteredStack.RemoveFromStack(removedObject);
+                removedObject.View.DOMove(transform.position, 1f).OnComplete(() => Destroy(removedObject.View.gameObject));
+
                 var inst = Instantiate(_template, transform.position, Quaternion.identity);
                 enteredStack.AddToStack(inst.Stackable);
                 break;
             }
         }
 
-        if (removedObject == null)
-            throw new InvalidOperationException("Can't remove object from stack");
-        enteredStack.RemoveFromStack(removedObject);
-        removedObject.View.DOMove(transform.position, 1f).OnComplete(() => Destroy(removedObject.View.gameObject));
+        //if (removedObject == null)
+        //    throw new InvalidOperationException("Can't remove object from stack");
+        //enteredStack.RemoveFromStack(removedObject);
+        //removedObject.View.DOMove(transform.position, 1f).OnComplete(() => Destroy(removedObject.View.gameObject));
 
 
 
