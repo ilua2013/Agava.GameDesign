@@ -8,6 +8,7 @@ namespace RunnerMovementSystem
     {
         [SerializeField] private RoadSegment _firstRoad;
         [SerializeField] private MovementOptions _options;
+        [SerializeField] private FinishPanel _finishPanel;
 
         private MovementBehaviour _movementBehaviour;
         private RoadMovement _roadMovement;
@@ -52,6 +53,16 @@ namespace RunnerMovementSystem
             _currentMovement?.Update();
         }
 
+        public void BoostSpeed()
+        {
+            _options.BoostSpeed();
+        }
+
+        public void DiminutiveSpeed()
+        {
+            _options.DiminutiveSpeed();
+        }
+
         public void Init(RoadSegment firstRoad)
         {
             _firstRoad = firstRoad;
@@ -82,8 +93,12 @@ namespace RunnerMovementSystem
         private void OnRoadEnd(RoadSegment roadSegment)
         {
             var nearestRoad = roadSegment.GetNearestRoad(transform.position);
+
             if (nearestRoad == null)
+            {
+                _finishPanel.ShowResult();
                 return;
+            }
 
             _roadMovement.Init(nearestRoad);
             _currentMovement = _roadMovement;

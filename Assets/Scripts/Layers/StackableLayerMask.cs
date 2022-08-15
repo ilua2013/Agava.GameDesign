@@ -27,5 +27,10 @@ namespace Agava.IdleGame
         {
             return (_value & (1 << layer)) != 0;
         }
+
+        public void SetLayer(int value)
+        {
+            _value = value;
+        }
     }
 }

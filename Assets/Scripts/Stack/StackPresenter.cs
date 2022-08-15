@@ -31,6 +31,13 @@ namespace Agava.IdleGame
             _stack = new StackStorage(_capacity, _stackableTypes);
         }
 
+        public void SetStackableTypes(int typeIndex)
+        {
+            _stackableTypes.SetLayer(typeIndex);
+            _stack = null;
+            _stack = new StackStorage(_capacity, _stackableTypes);
+        }
+
         public bool CanAddToStack(int layer)
         {
             return _stack.CanAdd(layer);
