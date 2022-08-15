@@ -12,7 +12,7 @@ namespace Agava.IdleGame
 
         private void OnValidate()
         {
-            _space = Mathf.Clamp(_space, 0f, float.MaxValue);
+            //_space = Mathf.Clamp(_space, 0f, float.MaxValue);
         }
 
         protected override Vector3 CalculateAddEndPosition(Transform container, Transform stackable)

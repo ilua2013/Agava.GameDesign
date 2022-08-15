@@ -8,7 +8,9 @@ namespace RunnerMovementSystem
     {
         [SerializeField] private RoadSegment _firstRoad;
         [SerializeField] private MovementOptions _options;
+        [SerializeField] private Animator _animator;
 
+        private string _moveAnimatoin = "Move";
         private MovementBehaviour _movementBehaviour;
         private RoadMovement _roadMovement;
         private TransitionMovement _transitionMovement;
@@ -62,7 +64,10 @@ namespace RunnerMovementSystem
         public void MoveForward()
         {
             if (enabled)
+            {
                 _currentMovement.MoveForward();
+                _animator.SetTrigger(_moveAnimatoin);
+            }
         }
 
         public void SetOffset(float offset)

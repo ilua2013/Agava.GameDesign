@@ -7,6 +7,7 @@ namespace Agava.IdleGame.Examples
     {
         [SerializeField] private SoftCurrencyHolder _holder;
         [SerializeField] private TMP_Text _currencyText;
+        [SerializeField] private SoftCurrencyAnimation _softCurrencyAnimation;
 
         private void OnEnable()
         {
@@ -26,6 +27,7 @@ namespace Agava.IdleGame.Examples
         private void OnBalanceChanged(int balance)
         {
             _currencyText.text = balance.ToString();
+            _softCurrencyAnimation.StartAnimation();
         }
     }
 }
