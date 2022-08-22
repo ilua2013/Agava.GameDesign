@@ -6,6 +6,8 @@ public class CoinsText : MonoBehaviour
     [SerializeField] private Wallet _wallet;
     [SerializeField] private TMP_Text _text;
 
+    [SerializeField] private UIImageAnimator _imageAnimator;
+
     private void OnEnable()
     {
         _wallet.CoinsChanged += Display;
@@ -24,5 +26,6 @@ public class CoinsText : MonoBehaviour
     private void Display(int value)
     {
         _text.text = value.ToString();
+        _imageAnimator.TriggerSize();
     }
 }

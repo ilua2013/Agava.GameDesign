@@ -17,5 +17,15 @@ namespace Agava.IdleGame
         {
             _stackable = new StackableObject(transform, _layer);
         }
+
+        public StackableObject GetStackable()
+        {
+            if(_stackable == null)
+            {
+                _stackable = new StackableObject(transform, _layer);
+            }
+
+            return _stackable;
+        }
     }
 }
