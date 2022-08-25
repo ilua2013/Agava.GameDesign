@@ -6,6 +6,8 @@ namespace Agava.IdleGame
     {
         [Header("Produced template")]
         [SerializeField] private StackableObjectPresenter _template;
+        [SerializeField] private Vector3 _eulerSpawnObject = Vector3.zero;
+        [SerializeField] private Vector3 _positionSpawn = Vector3.zero;
 
         protected override bool CanInteract(StackPresenter enteredStack)
         {
@@ -14,7 +16,12 @@ namespace Agava.IdleGame
 
         protected override void InteractAction(StackPresenter enteredStack)
         {
-            var inst = Instantiate(_template, transform.position, Quaternion.identity);
+            if (_positionSpawn == Vector3.zero)
+            {
+                _positionSpawn = transform.position;
+            }
+
+            var inst = Instantiate(_template, _positionSpawn, Quaternion.Euler(_eulerSpawnObject));
             enteredStack.AddToStack(inst.Stackable);
         }
     }

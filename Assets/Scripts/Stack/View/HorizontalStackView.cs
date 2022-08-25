@@ -15,9 +15,18 @@ namespace Agava.IdleGame
             _space = Mathf.Clamp(_space, 0f, float.MaxValue);
         }
 
-        protected override Vector3 CalculateAddEndPosition(Transform container, Transform stackable)
+        protected override Vector3 CalculateAddEndPosition(Transform container, StackableObject stackable)
         {
-            return Vector3.right * container.childCount * (stackable.lossyScale.x + _space);
+            //return Vector3.right * container.childCount * (stackable.YScale + _space);
+
+            Vector3 offset = Vector3.zero;
+
+            for (int i = 0; i < _stackables.Count; i++)
+                offset.y += _stackables[i].YScale;
+
+            offset.y += _space;
+
+            return offset;
         }
 
         protected override void Sort(IEnumerable<StackableObject> unsortedStackables, float animationDuration)

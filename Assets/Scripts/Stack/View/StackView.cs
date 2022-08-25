@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 using Agava.IdleGame.Model;
+using System.Collections;
 
 namespace Agava.IdleGame
 {
@@ -14,12 +15,13 @@ namespace Agava.IdleGame
         [Header("Add Settings")]
         [SerializeField] private FloatSetting _scalePunch = new FloatSetting(true, 1.1f);
         [SerializeField] private FloatSetting _jumpPower = new FloatSetting(false, 0f);
+        [SerializeField] private Vector3 _rotateObject;
 
-        private List<StackableObject> _stackables = new List<StackableObject>();
+        protected List<StackableObject> _stackables = new List<StackableObject>();
 
         public void Add(StackableObject stackable, UnityAction onComplete)
         {
-            Vector3 endPosition = CalculateAddEndPosition(_container, stackable.View);
+            Vector3 endPosition = CalculateAddEndPosition(_container, stackable);
             Vector3 endRotation = CalculateEndRotation(_container, stackable.View);
             Vector3 defaultScale = stackable.View.localScale;
 
@@ -27,14 +29,30 @@ namespace Agava.IdleGame
             stackable.View.parent = _container;
 
             stackable.View.DOLocalMove(endPosition, _animationDuration).OnComplete(() => onComplete?.Invoke());
+
+            if(_rotateObject != Vector3.zero)
+            {
+                endRotation = _rotateObject;
+            }
+
             stackable.View.DOLocalRotate(endRotation, _animationDuration);
 
             if (_scalePunch.Enabled)
-                stackable.View.DOPunchScale(defaultScale * _scalePunch.Value, _animationDuration);
+            {
+                StartCoroutine(Animation(stackable, defaultScale));
+            }
+                //stackable.View.DOPunchScale(defaultScale * _scalePunch.Value, _animationDuration);
             if (_jumpPower.Enabled)
                 stackable.View.DOLocalJump(endPosition, _jumpPower.Value, 1, _animationDuration);
 
             _stackables.Add(stackable);
+        }
+
+        private IEnumerator Animation(StackableObject anim, Vector3 defaultScale)
+        {
+            anim.View.DOScale(defaultScale * _scalePunch.Value, _animationDuration / 2);
+            yield return new WaitForSeconds(_animationDuration / 2f);
+            anim.View.DOScale(defaultScale, _animationDuration / 2);
         }
 
         public void Remove(StackableObject stackable)
@@ -47,7 +65,7 @@ namespace Agava.IdleGame
         }
 
         protected virtual Vector3 CalculateEndRotation(Transform container, Transform stackable) { return Vector3.zero; }
-        protected abstract Vector3 CalculateAddEndPosition(Transform container, Transform stackable);
+        protected abstract Vector3 CalculateAddEndPosition(Transform container, StackableObject stackable);
         protected abstract void Sort(IEnumerable<StackableObject> unsortedTransforms, float animationDuration);
 
         #region InspectorSettings

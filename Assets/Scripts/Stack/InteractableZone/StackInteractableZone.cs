@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Agava.IdleGame.Model;
@@ -15,7 +16,11 @@ namespace Agava.IdleGame
         private Coroutine _waitCoroutine;
 
         public ITimer Timer => _timer;
+        public Trigger<StackPresenter> Trigger => _trigger;
         protected virtual float InteracionTime => _interactionTime;
+
+        public event Action StartCreated;
+        public event Action FinishCreated;
 
         private void OnValidate()
         {

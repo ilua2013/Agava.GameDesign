@@ -10,6 +10,7 @@ namespace Agava.IdleGame
         [Space(15f)]
         [SerializeField] private Vector3Int _size = Vector3Int.one;
         [SerializeField] private Vector3 _distanceBetweenObjects = Vector3.one;
+        [SerializeField] private Vector3 _eulerObject;
 
 #if UNITY_EDITOR
         [Space(5)]
@@ -38,7 +39,7 @@ namespace Agava.IdleGame
         }
 #endif
 
-        protected override Vector3 CalculateAddEndPosition(Transform container, Transform stackable)
+        protected override Vector3 CalculateAddEndPosition(Transform container, StackableObject stackable = null)
         {
             var index = container.childCount;
 
@@ -54,6 +55,7 @@ namespace Agava.IdleGame
 
                 stackable.View.DOComplete(true);
                 stackable.View.DOMove(position, animationDuration);
+                stackable.View.DORotate(_eulerObject, animationDuration);
 
                 index++;
             }

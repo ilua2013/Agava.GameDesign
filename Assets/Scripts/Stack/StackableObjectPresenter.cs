@@ -7,6 +7,7 @@ namespace Agava.IdleGame
     {
         [SerializeField]
         [StackableLayer] private int _layer;
+        [SerializeField] private float _yScale;
 
         private StackableObject _stackable;
 
@@ -15,7 +16,7 @@ namespace Agava.IdleGame
 
         private void Awake()
         {
-            _stackable = new StackableObject(transform, _layer);
+            _stackable = new StackableObject(transform, _layer, _yScale);
         }
     }
 }
